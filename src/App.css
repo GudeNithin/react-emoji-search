@@ -1,28 +1,55 @@
-h4{
-  font-family:'Courier New';
-  font-size:20px;
-  padding:10px;
-  margin:10px;
-  color:blue;
-  font-weight: bold;
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Poppins', sans-serif;
 }
 
-input{
-  height:30px;
-  width:150px;
-  margin:10px;
-  padding:5px;
-  color:black;
-  font-family:monospace;
-  font-weight:bold;
+body {
+  background: linear-gradient(135deg, #ff7e5f, #feb47b);
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-button{
-  border-radius:10px;
-  padding:10px;
-  margin:10px;
-  color:white;
-  background-color: black;
-  font-family:'Courier New';
-  font-size:12px;
+.app {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+}
+
+.card {
+  background: white;
+  padding: 2rem;
+  border-radius: 16px;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+  text-align: center;
+}
+
+h4 {
+  margin-bottom: 1rem;
+  color: #333;
+  font-size: 1.5rem;
+}
+
+.button {
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 8px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.button:hover {
+  background-color: #45a049;
+}
+
+button:focus {
+  outline: none;
 }

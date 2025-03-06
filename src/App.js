@@ -1,40 +1,33 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import Display from './Display';
-
+import './App.css';
 
 const App = () => {
-  const endTime = new Date('March 9, 2025 2:30:00').getTime();
-  const [currentTime, setCurrentTime] = useState(new Date().getTime());
+  const [search, setSearch] = useState('');
+  const [movies, setMovies] = useState([]);
 
+  const handler = (e) => {
+    setSearch(e.target.value);
+  };
 
-  const gap = endTime - currentTime;
-
-  const seconds = 1000;
-  const minutes = seconds * 60;
-  const hours = minutes * 60;
-  const days = hours * 24;
-
-  const remainingDays = Math.floor(gap / days);
-  const remainingHours = Math.floor((gap % days) / hours);
-  const remainingMinutes = Math.floor((gap % hours) / minutes);
-  const remainingSeconds = Math.floor((gap % minutes) / seconds);
-
-  useEffect(() => {
-   setTimeout(() => setCurrentTime(new Date().getTime()), 1000);
-  }, [currentTime, gap]);
-
+  const submitHandler = (e) => {
+    e.preventDefault();
+    fetch(`http://www.omdbapi.com/?s=${search}&apikey=263d22d8`)
+      .then((response) => response.json())
+      .then((res) => setMovies(res.Search || []));
+  };
 
   return (
-            <div>
-              <center>
-                <Display 
-                  days={remainingDays} 
-                  hours={remainingHours} 
-                  minutes={remainingMinutes} 
-                  seconds={remainingSeconds} 
-                />
-              </center>
-            </div>
+    <div className="app-container">
+      <center>
+        <h4 className="app-title">Movie Search</h4>
+        <form onSubmit={submitHandler} className="search-form">
+          <input type="text" value={search} onChange={handler} className="search-input" placeholder="Search for movies..." />
+          <button type="submit" className="search-button">Search</button>
+        </form>
+        {movies.length > 0 ? <Display movies={movies} /> : null}
+      </center>
+    </div>
   );
 };
 

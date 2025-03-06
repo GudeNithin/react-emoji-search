@@ -1,28 +1,18 @@
+import React from 'react';
 import './App.css';
 
-const Display = ({ days, hours, minutes, seconds }) => {
+const Display = ({ movies }) => {
   return (
-    <div className="display-container">
-      <h4 className="title">India VS South Africa</h4>
-      <p className="subtitle">Champions Trophy Final Starts in</p>
-      <div className="timer-grid">
-        <div className="time-section">
-          <p className="time-value">{days}</p>
-          <p className="time-label">DAYS</p>
+    <div className="movie-grid">
+      {movies.map((movie, index) => (
+        <div className="movie-card" key={index}>
+          <img className="movie-poster" src={movie.Poster} alt="Card image cap"/>
+          <div className="movie-info">
+            <h5 className="movie-title">{movie.Title}</h5>
+            <p className="movie-year">{movie.Year}</p>
+          </div>
         </div>
-        <div className="time-section">
-          <p className="time-value">{hours}</p>
-          <p className="time-label">HOURS</p>
-        </div>
-        <div className="time-section">
-          <p className="time-value">{minutes}</p>
-          <p className="time-label">MINUTES</p>
-        </div>
-        <div className="time-section">
-          <p className="time-value">{seconds}</p>
-          <p className="time-label">SECONDS</p>
-        </div>
-      </div>
+      ))}
     </div>
   );
 };

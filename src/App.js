@@ -1,34 +1,34 @@
-import React, { useState } from 'react';
-import Display from './Display';
-import './App.css';
+import React,{useState,useEffect} from 'react'
+import EmojiData from './emoji.json'
+import './App.css'
 
 const App = () => {
-  const [search, setSearch] = useState('');
-  const [movies, setMovies] = useState([]);
-
-  const handler = (e) => {
+  const [search,setSearch]=useState('');
+  const [data,setData]=useState([])
+  const handler=e=>{
     setSearch(e.target.value);
-  };
+  }
 
-  const submitHandler = (e) => {
-    e.preventDefault();
-    fetch(`http://www.omdbapi.com/?s=${search}&apikey=263d22d8`)
-      .then((response) => response.json())
-      .then((res) => setMovies(res.Search || []));
-  };
+  useEffect(()=>{
+   const newData=EmojiData.filter(emoji => emoji.title.toLowerCase().includes(search.toLowerCase()));
+   setData(newData)
+  },[search])
 
   return (
-    <div className="app-container">
+    <div>
       <center>
-        <h4 className="app-title">Movie Search</h4>
-        <form onSubmit={submitHandler} className="search-form">
-          <input type="text" value={search} onChange={handler} className="search-input" placeholder="Search for movies..." />
-          <button type="submit" className="search-button">Search</button>
-        </form>
-        {movies.length > 0 ? <Display movies={movies} /> : null}
+        <h4 className="m-3">React Emoji Search</h4>
+        <input type="text" name="search" value={search} onChange={handler}/>
       </center>
+      {data.map(emoji=><div>
+        <div className="card m-2">
+        <div className="card-body" onClick={()=>{navigator.clipboard.writeText(emoji.symbol);alert("Copied")}}>
+          {emoji.symbol} {emoji.title}
+        </div>
+      </div>
+      </div>)}
     </div>
-  );
-};
+  )
+}
 
-export default App;
+export default App

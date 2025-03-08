@@ -32,3 +32,5 @@ const App = () => {
 }
 
 export default App
+
+// https://react-emoji-search-sable.vercel.app/ -- Deployment Link
